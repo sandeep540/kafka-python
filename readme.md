@@ -1,14 +1,14 @@
-kcat -b localhost:51820,localhost:51825,localhost:51826 -t test -P -l -K: sample
-kcat -b localhost:51820 -t test -P -K: -p 1
-kcat -P -b localhost:51820 -t test
+    kcat -b localhost:51820,localhost:51825,localhost:51826 -t test -P -l -K: sample
+    kcat -b localhost:51820 -t test -P -K: -p 1
+    kcat -P -b localhost:51820 -t test
 
-rpk topic create products --brokers localhost:53663
+    rpk topic create products --brokers localhost:53663
 
-kcat -C -b localhost:53663 -t products -o beginning
+    kcat -C -b localhost:53663 -t products -o beginning
 
 
-docker-compose up -d
-docker-compose down 
+    docker-compose up -d
+    docker-compose down 
 
 ---
 
