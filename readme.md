@@ -2,10 +2,10 @@
     kcat -b localhost:51820 -t test -P -K: -p 1
     kcat -P -b localhost:51820 -t test
 
-    rpk topic create products --brokers localhost:53663
+    rpk topic create enriched-topic --brokers localhost:52609
 
     kcat -C -b localhost:53663 -t products -o beginning
-
+    cat -C -b localhost:52609 -t enriched-topic -o beginning
 
     docker-compose up -d
     docker-compose down 
@@ -23,7 +23,7 @@ Change the Broker info in Python file, regenrate the docker
     rpk container purge
     kcat -C -b localhost:53427,localhost:53433,localhost:53432 -t temperatures -o beginning
 
-    kcat -C -b localhost:52785 -t testing -o beginning
+    kcat -C -b localhost:50697 -t people -o beginning
     kcat -P -b localhost:52785 -t testing
 
 

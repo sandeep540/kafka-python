@@ -9,8 +9,8 @@ from kafka import KafkaProducer
 from json import dumps  
 from kafka.admin import KafkaAdminClient, NewTopic
 
-kafka_nodes=['localhost:52201']
-myTopic = 'speed'
+kafka_nodes=['localhost:9092','localhost:9093','localhost:9094']
+myTopic = 'input'
 
 admin_client = KafkaAdminClient(
     bootstrap_servers=kafka_nodes, 
@@ -32,7 +32,7 @@ if myTopic not in topics:
 def gen_data():
 
     # Producer instance
-    my_data = {'speed' : random.randint(75, 100), 'id' : str(uuid.uuid4()), 'timestamp': str(datetime.datetime.now())}
+    my_data = {'temperature' : random.randint(75, 200), 'id' : str(uuid.uuid4()), 'date': str(datetime.datetime.now())}
     prod = KafkaProducer(bootstrap_servers=kafka_nodes,value_serializer = lambda x:dumps(x).encode('utf-8'))
     print(my_data)
     prod.send(topic=myTopic, value=my_data)
@@ -41,7 +41,7 @@ def gen_data():
 if __name__ == "__main__":
 
     gen_data()
-    schedule.every(5).seconds.do(gen_data)
+    schedule.every(2).seconds.do(gen_data)
 
     while True:
         schedule.run_pending()
